@@ -8,7 +8,7 @@ DELETE FROM `spell_dbc` WHERE `ID` = 11202;
 
 UPDATE `item_template` SET `class` = 0, `subclass` = 8, `spellppmRate_1` = -1 WHERE `entry` = 3776;
 UPDATE `item_template` SET `class` = 0, `subclass` = 8, `spellid_1` = 8693, `spellcharges_1` = -1 WHERE `entry` = 6951;
-UPDATE `item_template` SET `class` = 0, `subclass` = 8, `spellid_1` = 11399, `spellcharges_1` = -1 WHERE `entry` = 9186;
+UPDATE `item_template` SET `class` = 0, `subclass` = 8, `Flags` = 2097216, `spellid_1` = 11399, `spellcharges_1` = -1 WHERE `entry` = 9186;
 
 UPDATE `quest_template` SET `RewardSpell` = 2995 WHERE `ID` IN (2480, 2359);
 
