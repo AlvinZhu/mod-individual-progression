@@ -467,10 +467,10 @@ public:
     {
         if (player->GetQuestStatus(QUEST_JAIL_BREAK) == QUEST_STATUS_INCOMPLETE)
         {
-            std::string message = "You're free, Dughal! Get out of here!";
+            std::string message = "你自由了，杜格哈尔！快出去！";
 
             if (me->GetEntry() == NPC_TOBIAS_SEECHER)
-                message = "Get out of here, Tobias, you're free!";
+                message = "出去吧，图比亚斯，你自由了！";
 
             AddGossipItemFor(player, GOSSIP_ICON_CHAT, message, GOSSIP_SENDER_MAIN, GOSSIP_ACTION_INFO_DEF + 1);
             SendGossipMenuFor(player, me->GetEntry() == NPC_DUGHAL_STORMWING ? 2846 : 2847, me->GetGUID());
