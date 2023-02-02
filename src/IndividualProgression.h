@@ -62,6 +62,7 @@ enum ProgressionMaps
     MAP_ZUL_GURUB = 309,
     MAP_AQ_20 = 509,
     MAP_AQ_40 = 531,
+    MAP_NAXX = 533,
     MAP_OUTLANDS = 530,
     MAP_ZUL_AMAN = 568,
     MAP_NORTHREND = 571,
