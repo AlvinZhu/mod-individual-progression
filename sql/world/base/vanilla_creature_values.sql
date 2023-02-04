@@ -23556,10 +23556,10 @@ UPDATE `creature_template` SET `detection_range` = 18.0, `DamageModifier` = 1.0 
 UPDATE `creature_template` SET `DamageModifier` = 20.0, `ArmorModifier` = 1.2 WHERE `entry`=15240;
 
 /*  Gryphon Rider Guard  */
-UPDATE `creature_template` SET `modelid1` = 15337, `minlevel` = 1, `maxlevel` = 1, `speed_run` = 1.14286, `detection_range` = 18.0, `DamageModifier` = 1.0, `HealthModifier` = 65.0 WHERE `entry`=15241;
+-- UPDATE `creature_template` SET `modelid1` = 15337, `minlevel` = 1, `maxlevel` = 1, `speed_run` = 1.14286, `detection_range` = 18.0, `DamageModifier` = 1.0, `HealthModifier` = 65.0 WHERE `entry`=15241;
 
 /*  Bat Rider Guard  */
-UPDATE `creature_template` SET `modelid1` = 15337, `minlevel` = 1, `maxlevel` = 1, `speed_walk` = 1.0, `speed_run` = 1.14286, `detection_range` = 18.0, `DamageModifier` = 1.0, `HealthModifier` = 65.0 WHERE `entry`=15242;
+-- UPDATE `creature_template` SET `modelid1` = 15337, `minlevel` = 1, `maxlevel` = 1, `speed_walk` = 1.0, `speed_run` = 1.14286, `detection_range` = 18.0, `DamageModifier` = 1.0, `HealthModifier` = 65.0 WHERE `entry`=15242;
 
 /*  [UNUSED] Vekniss Wasprider  */
 UPDATE `creature_template` SET `speed_walk` = 2.4, `speed_run` = 2.14286, `detection_range` = 18.0, `DamageModifier` = 1.0 WHERE `entry`=15243;
