@@ -95,7 +95,6 @@ public:
 
         instance_blackrock_spireMapScript(InstanceMap* map) : InstanceScript(map)
         {
-            SetHeaders(DataHeader);
             SetBossNumber(EncounterCount);
             LoadMinionData(minionData);
             LoadDoorData(doorData);
@@ -754,16 +753,50 @@ public:
             }
         }
 
-        void ReadSaveDataMore(std::istringstream& data) override
+        std::string GetSaveData() override
         {
-            uint32 temp = 0;
-            data >> temp;
-            UBRSDoorOpen = temp;
+            OUT_SAVE_INST_DATA;
+
+            std::ostringstream saveStream;
+            saveStream << "B S " << GetBossSaveData() << uint32(UBRSDoorOpen ? 1 : 0);
+            OUT_SAVE_INST_DATA_COMPLETE;
+            return saveStream.str();
         }
 
-        void WriteSaveDataMore(std::ostringstream& data) override
+        void Load(const char* strIn) override
         {
-            data << uint32(UBRSDoorOpen ? 1 : 0);
+            if (!strIn)
+            {
+                OUT_LOAD_INST_DATA_FAIL;
+                return;
+            }
+
+            OUT_LOAD_INST_DATA(strIn);
+
+            char dataHead1, dataHead2;
+
+            std::istringstream loadStream(strIn);
+            loadStream >> dataHead1 >> dataHead2;
+
+            if (dataHead1 == 'B' && dataHead2 == 'S')
+            {
+                uint32 tmpState;
+                for (uint8 i = 0; i < EncounterCount; ++i)
+                {
+                    loadStream >> tmpState;
+                    if (tmpState == IN_PROGRESS || tmpState > SPECIAL)
+                        tmpState = NOT_STARTED;
+
+                    SetBossState(i, EncounterState(tmpState));
+                }
+
+                loadStream >> tmpState;
+                UBRSDoorOpen = tmpState;
+            }
+            else
+                OUT_LOAD_INST_DATA_FAIL;
+
+            OUT_LOAD_INST_DATA_COMPLETE;
         }
 
     protected:

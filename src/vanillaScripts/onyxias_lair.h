@@ -22,8 +22,6 @@
 #include "Player.h"
 #include "MapMgr.h"
 
-#define DataHeader "OL"
-
 #define OnyxiasLairScriptName "instance_onyxias_lair"
 
 enum eInstanceData
