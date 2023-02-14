@@ -19,23 +19,23 @@ public:
     }
 
     // Waiting for PR: https://github.com/azerothcore/azerothcore-wotlk/pull/13046
-//    void OnSetMaxLevel(Player* player, uint32& maxPlayerLevel) override
-//    {
-//        if (!sIndividualProgression->hasPassedProgression(player, PROGRESSION_NAXX40))
-//        {
-//            if (sWorld->getIntConfig(CONFIG_MAX_PLAYER_LEVEL) > 60)
-//            {
-//                maxPlayerLevel = 60;
-//            }
-//        }
-//        else if (!sIndividualProgression->hasPassedProgression(player, PROGRESSION_TBC_TIER_5))
-//        {
-//            if (sWorld->getIntConfig(CONFIG_MAX_PLAYER_LEVEL) > 70)
-//            {
-//                maxPlayerLevel = 70;
-//            }
-//        }
-//    }
+   void OnSetMaxLevel(Player* player, uint32& maxPlayerLevel) override
+   {
+       if (!sIndividualProgression->hasPassedProgression(player, PROGRESSION_NAXX40))
+       {
+           if (sWorld->getIntConfig(CONFIG_MAX_PLAYER_LEVEL) > 60)
+           {
+               maxPlayerLevel = 60;
+           }
+       }
+       else if (!sIndividualProgression->hasPassedProgression(player, PROGRESSION_TBC_TIER_5))
+       {
+           if (sWorld->getIntConfig(CONFIG_MAX_PLAYER_LEVEL) > 70)
+           {
+               maxPlayerLevel = 70;
+           }
+       }
+   }
 
     void OnMapChanged(Player* player) override
     {
