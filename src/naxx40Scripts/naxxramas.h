@@ -15,11 +15,13 @@
  * with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef DEF_NAXXRAMAS_H
-#define DEF_NAXXRAMAS_H
+#ifndef DEF_NAXXRAMAS40_H
+#define DEF_NAXXRAMAS40_H
 
 #include "CreatureAIImpl.h"
 #include "SpellScript.h"
+
+#define DataHeader "NAX"
 
 #define NaxxramasScriptName "instance_naxxramas"
 

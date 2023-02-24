@@ -67,6 +67,7 @@ public:
     {
         explicit instance_naxxramas_combined_InstanceMapScript(Map* pMap) : InstanceScript(pMap)
         {
+            SetHeaders(DataHeader);
             SetBossNumber(MAX_ENCOUNTERS);
             for (auto& i : HeiganEruption)
                 i.clear();
@@ -193,7 +194,6 @@ public:
 
         void OnCreatureCreate(Creature* creature) override
         {
-
             switch(creature->GetEntry())
             {
                 case NPC_PATCHWERK:
@@ -995,6 +995,16 @@ public:
                         break;
                     case BOSS_SAPPHIRON:
                         events.ScheduleEvent(EVENT_FROSTWYRM_WATERFALL_DOOR, 5000);
+                        if (instance->GetDifficulty() == RAID_DIFFICULTY_10MAN_HEROIC){
+                            if (GameObject* go = instance->GetGameObject(_sapphironGateGUID))
+                            {
+                                go->SetGoState(GO_STATE_ACTIVE);
+                            }
+                            if (GameObject* go = instance->GetGameObject(_kelthuzadGateGUID))
+                            {
+                                go->SetGoState(GO_STATE_ACTIVE);
+                            }
+                        }
                         break;
                     case BOSS_THADDIUS:
                         if (GameObject* go = instance->GetGameObject(_thaddiusPortalGUID))
@@ -1182,12 +1192,12 @@ public:
         }
 
         void ReadSaveDataMore(std::istringstream& data) override
-            {
+        {
             data >> immortalAchievement;
-                    }
+        }
 
         void WriteSaveDataMore(std::ostringstream& data) override
-            {
+        {
             data << immortalAchievement;
         }
     };
