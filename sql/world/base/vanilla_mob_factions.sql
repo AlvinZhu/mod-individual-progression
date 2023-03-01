@@ -1022,7 +1022,7 @@ UPDATE `creature_template` SET `faction` = 79 WHERE `entry` = 6246;
 UPDATE `creature_template` SET `faction` = 18 WHERE `entry` = 6250;
 
 /*  Summoned Felhunter  */
-UPDATE `creature_template` SET `faction` = 35 WHERE `entry` = 6268;
+-- UPDATE `creature_template` SET `faction` = 35 WHERE `entry` = 6268;
 
 /*  Kurzen Mindslave  */
 UPDATE `creature_template` SET `faction` = 30 WHERE `entry` = 6366;
