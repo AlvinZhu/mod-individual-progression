@@ -2270,7 +2270,7 @@ UPDATE `creature_template` SET `faction` = 35 WHERE `entry` = 14633;
 UPDATE `creature_template` SET `faction` = 35 WHERE `entry` = 14635;
 
 /*  Chambermaid Pillaclencher  */
-UPDATE `creature_template` SET `faction` = 35 WHERE `entry` = 14636;
+-- UPDATE `creature_template` SET `faction` = 35 WHERE `entry` = 14636;
 
 /*  Zapped Wave Strider  */
 UPDATE `creature_template` SET `faction` = 14 WHERE `entry` = 14638;
