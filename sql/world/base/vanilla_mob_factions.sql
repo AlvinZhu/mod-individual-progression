@@ -820,15 +820,6 @@ UPDATE `creature_template` SET `faction` = 1077 WHERE `entry` = 5057;
 /*  Balos Jacken  */
 UPDATE `creature_template` SET `faction` = 84 WHERE `entry` = 5089;
 
-/*  Black Riding Wolf  */
-UPDATE `creature_template` SET `faction` = 85 WHERE `entry` = 5194;
-
-/*  Gray Riding Wolf  */
-UPDATE `creature_template` SET `faction` = 85 WHERE `entry` = 5196;
-
-/*  Red Riding Wolf  */
-UPDATE `creature_template` SET `faction` = 85 WHERE `entry` = 5197;
-
 /*  Coast Crawl Clacker  */
 UPDATE `creature_template` SET `faction` = 35 WHERE `entry` = 5326;
 
@@ -1020,9 +1011,6 @@ UPDATE `creature_template` SET `faction` = 79 WHERE `entry` = 6246;
 
 /*  Crawler  */
 UPDATE `creature_template` SET `faction` = 18 WHERE `entry` = 6250;
-
-/*  Summoned Felhunter  */
--- UPDATE `creature_template` SET `faction` = 35 WHERE `entry` = 6268;
 
 /*  Kurzen Mindslave  */
 UPDATE `creature_template` SET `faction` = 30 WHERE `entry` = 6366;
@@ -1498,9 +1486,6 @@ UPDATE `creature_template` SET `faction` = 91 WHERE `entry` = 8981;
 /*  Voidwalker Minion  */
 UPDATE `creature_template` SET `faction` = 7 WHERE `entry` = 8996;
 
-/*  Sha'ni Proudtusk  */
-UPDATE `creature_template` SET `faction` = 85 WHERE `entry` = 9136;
-
 /*  Enraged Wyvern  */
 UPDATE `creature_template` SET `faction` = 104 WHERE `entry` = 9297;
 
@@ -1542,9 +1527,6 @@ UPDATE `creature_template` SET `faction` = 55 WHERE `entry` = 9526;
 
 /*  Enraged Hippogryph  */
 UPDATE `creature_template` SET `faction` = 14 WHERE `entry` = 9527;
-
-/*  Shadow of Lexlort  */
-UPDATE `creature_template` SET `faction` = 85 WHERE `entry` = 9539;
 
 /*  Raschal the Courier  */
 UPDATE `creature_template` SET `faction` = 1080 WHERE `entry` = 9546;
@@ -1686,9 +1668,6 @@ UPDATE `creature_template` SET `faction` = 91 WHERE `entry` = 10641;
 
 /*  Guardian Felhunter  */
 UPDATE `creature_template` SET `faction` = 1 WHERE `entry` = 10656;
-
-/*  Corrupted Cat  */
-UPDATE `creature_template` SET `faction` = 85 WHERE `entry` = 10657;
 
 /*  Rookery Hatcher  */
 UPDATE `creature_template` SET `faction` = 14 WHERE `entry` = 10683;
@@ -2032,9 +2011,6 @@ UPDATE `creature_template` SET `faction` = 875 WHERE `entry` = 12784;
 /*  Sergeant Major Clate  */
 UPDATE `creature_template` SET `faction` = 55 WHERE `entry` = 12785;
 
-/*  Legionnaire Teena  */
-UPDATE `creature_template` SET `faction` = 85 WHERE `entry` = 12788;
-
 /*  Blood Guard Hini'wana  */
 UPDATE `creature_template` SET `faction` = 126 WHERE `entry` = 12789;
 
@@ -2044,32 +2020,11 @@ UPDATE `creature_template` SET `faction` = 71 WHERE `entry` = 12790;
 /*  Chieftain Earthbind  */
 UPDATE `creature_template` SET `faction` = 105 WHERE `entry` = 12791;
 
-/*  Lady Palanseer  */
-UPDATE `creature_template` SET `faction` = 85 WHERE `entry` = 12792;
-
-/*  Brave Stonehide  */
-UPDATE `creature_template` SET `faction` = 85 WHERE `entry` = 12793;
-
-/*  Stone Guard Zarg  */
-UPDATE `creature_template` SET `faction` = 85 WHERE `entry` = 12794;
-
-/*  First Sergeant Hola'mahi  */
-UPDATE `creature_template` SET `faction` = 85 WHERE `entry` = 12795;
-
-/*  Raider Bork  */
-UPDATE `creature_template` SET `faction` = 85 WHERE `entry` = 12796;
-
 /*  Ruul Snowhoof Bear Form  */
 UPDATE `creature_template` SET `faction` = 35 WHERE `entry` = 12819;
 
 /*  Ashenvale Outrunner  */
 UPDATE `creature_template` SET `faction` = 124 WHERE `entry` = 12856;
-
-/*  Torek  */
-UPDATE `creature_template` SET `faction` = 83 WHERE `entry` = 12858;
-
-/*  Splintertree Raider  */
-UPDATE `creature_template` SET `faction` = 83 WHERE `entry` = 12859;
 
 /*  Wisp (Ghost Visual Only)  */
 UPDATE `creature_template` SET `faction` = 35 WHERE `entry` = 12861;
@@ -2242,35 +2197,11 @@ UPDATE `creature_template` SET `faction` = 92 WHERE `entry` = 14564;
 /*  Darkreaver's Fallen Charger  */
 UPDATE `creature_template` SET `faction` = 1080 WHERE `entry` = 14568;
 
-/*  Sergeant Thunderhorn  */
-UPDATE `creature_template` SET `faction` = 85 WHERE `entry` = 14581;
-
 /*  Zapped Shore Strider  */
 UPDATE `creature_template` SET `faction` = 14 WHERE `entry` = 14603;
 
 /*  Zapped Land Walker  */
 UPDATE `creature_template` SET `faction` = 14 WHERE `entry` = 14604;
-
-/*  Loggerhead Snapjaw  */
-UPDATE `creature_template` SET `faction` = 35 WHERE `entry` = 14629;
-
-/*  Leatherback Snapjaw  */
-UPDATE `creature_template` SET `faction` = 35 WHERE `entry` = 14630;
-
-/*  Olive Snapjaw  */
-UPDATE `creature_template` SET `faction` = 35 WHERE `entry` = 14631;
-
-/*  Hawksbill Snapjaw  */
-UPDATE `creature_template` SET `faction` = 35 WHERE `entry` = 14632;
-
-/*  Albino Snapjaw  */
-UPDATE `creature_template` SET `faction` = 35 WHERE `entry` = 14633;
-
-/*  Sleepy Dark Iron Worker  */
-UPDATE `creature_template` SET `faction` = 35 WHERE `entry` = 14635;
-
-/*  Chambermaid Pillaclencher  */
--- UPDATE `creature_template` SET `faction` = 35 WHERE `entry` = 14636;
 
 /*  Zapped Wave Strider  */
 UPDATE `creature_template` SET `faction` = 14 WHERE `entry` = 14638;
@@ -2490,21 +2421,6 @@ UPDATE `creature_template` SET `faction` = 16 WHERE `entry` = 15527;
 
 /*  Maws  */
 UPDATE `creature_template` SET `faction` = 7 WHERE `entry` = 15571;
-
-/*  Krug Skullsplit  */
-UPDATE `creature_template` SET `faction` = 85 WHERE `entry` = 15612;
-
-/*  Merok Longstride  */
-UPDATE `creature_template` SET `faction` = 85 WHERE `entry` = 15613;
-
-/*  Shadow Priestess Shai  */
-UPDATE `creature_template` SET `faction` = 85 WHERE `entry` = 15615;
-
-/*  Orgrimmar Legion Grunt  */
-UPDATE `creature_template` SET `faction` = 85 WHERE `entry` = 15616;
-
-/*  Orgrimmar Legion Axe Thrower  */
-UPDATE `creature_template` SET `faction` = 85 WHERE `entry` = 15617;
 
 /*  Hive'Regal Hunter-Killer  */
 UPDATE `creature_template` SET `faction` = 14 WHERE `entry` = 15620;
