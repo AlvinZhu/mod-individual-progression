@@ -379,9 +379,6 @@ UPDATE `creature_template` SET `faction` = 32 WHERE `entry` = 2707;
 /*  Shadowforge Commander  */
 UPDATE `creature_template` SET `faction` = 14 WHERE `entry` = 2744;
 
-/*  Archaedas  */
-UPDATE `creature_template` SET `faction` = 35 WHERE `entry` = 2748;
-
 /*  Siege Golem  */
 UPDATE `creature_template` SET `faction` = 91 WHERE `entry` = 2749;
 
@@ -793,9 +790,6 @@ UPDATE `creature_template` SET `faction` = 128 WHERE `entry` = 4827;
 /*  Old Serra'kis  */
 UPDATE `creature_template` SET `faction` = 128 WHERE `entry` = 4830;
 
-/*  Stone Keeper  */
-UPDATE `creature_template` SET `faction` = 35 WHERE `entry` = 4857;
-
 /*  Guard Jarad  */
 UPDATE `creature_template` SET `faction` = 151 WHERE `entry` = 4923;
 
@@ -979,9 +973,6 @@ UPDATE `creature_template` SET `faction` = 128 WHERE `entry` = 6047;
 /*  Earthgrab Totem  */
 UPDATE `creature_template` SET `faction` = 16 WHERE `entry` = 6066;
 
-/*  Warug's Bodyguard  */
-UPDATE `creature_template` SET `faction` = 35 WHERE `entry` = 6068;
-
 /*  Bartleby  */
 UPDATE `creature_template` SET `faction` = 12 WHERE `entry` = 6090;
 
@@ -1057,12 +1048,6 @@ UPDATE `creature_template` SET `faction` = 92 WHERE `entry` = 6932;
 /*  Agent Kearnen  */
 UPDATE `creature_template` SET `faction` = 11 WHERE `entry` = 7024;
 
-/*  Earthen Guardian  */
-UPDATE `creature_template` SET `faction` = 35 WHERE `entry` = 7076;
-
-/*  Earthen Hallshaper  */
-UPDATE `creature_template` SET `faction` = 35 WHERE `entry` = 7077;
-
 /*  Jadefire Rogue  */
 UPDATE `creature_template` SET `faction` = 90 WHERE `entry` = 7106;
 
@@ -1080,9 +1065,6 @@ UPDATE `creature_template` SET `faction` = 11 WHERE `entry` = 7266;
 
 /*  [UNUSED] Drayl  */
 UPDATE `creature_template` SET `faction` = 105 WHERE `entry` = 7293;
-
-/*  Earthen Custodian  */
-UPDATE `creature_template` SET `faction` = 35 WHERE `entry` = 7309;
 
 /*  Lady Sathrah  */
 UPDATE `creature_template` SET `faction` = 22 WHERE `entry` = 7319;
@@ -1588,9 +1570,6 @@ UPDATE `creature_template` SET `faction` = 32 WHERE `entry` = 10042;
 /*  Deathmaw  */
 UPDATE `creature_template` SET `faction` = 14 WHERE `entry` = 10077;
 
-/*  Vault Warder  */
-UPDATE `creature_template` SET `faction` = 35 WHERE `entry` = 10120;
-
 /*  Rookery Whelp  */
 UPDATE `creature_template` SET `faction` = 14 WHERE `entry` = 10161;
 
@@ -1761,9 +1740,6 @@ UPDATE `creature_template` SET `faction` = 119 WHERE `entry` = 10928;
 
 /*  Captain Redpath  */
 UPDATE `creature_template` SET `faction` = 113 WHERE `entry` = 10937;
-
-/*  Marduk the Black  */
-UPDATE `creature_template` SET `faction` = 35 WHERE `entry` = 10939;
 
 /*  Davil Lightfire  */
 UPDATE `creature_template` SET `faction` = 113 WHERE `entry` = 10944;
