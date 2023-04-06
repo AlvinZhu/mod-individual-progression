@@ -1006,16 +1006,6 @@ public:
                         break;
                     case BOSS_SAPPHIRON:
                         events.ScheduleEvent(EVENT_FROSTWYRM_WATERFALL_DOOR, 5000);
-                        if (instance->GetDifficulty() == RAID_DIFFICULTY_10MAN_HEROIC){
-                            if (GameObject* go = instance->GetGameObject(_sapphironGateGUID))
-                            {
-                                go->SetGoState(GO_STATE_ACTIVE);
-                            }
-                            if (GameObject* go = instance->GetGameObject(_kelthuzadGateGUID))
-                            {
-                                go->SetGoState(GO_STATE_ACTIVE);
-                            }
-                        }
                         break;
                     case BOSS_THADDIUS:
                         if (GameObject* go = instance->GetGameObject(_thaddiusPortalGUID))
