@@ -19921,9 +19921,6 @@ UPDATE item_template SET Quality = 1 WHERE entry=5116;
 /*  Flash Powder  */
 UPDATE item_template SET Quality = 1, Flags = 0 WHERE entry=5140;
 
-/* Blinding Powder */
-UPDATE item_template SET subclass = 1, Quality = 1, description = '' WHERE entry=5530;
-
 /*  Book of Healing Touch III  */
 UPDATE item_template SET BuyPrice = 900 WHERE entry=5150;
 
