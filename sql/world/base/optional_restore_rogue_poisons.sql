@@ -313,4 +313,4 @@ INSERT INTO `spell_ranks` (`first_spell_id`, `spell_id`, `rank`) VALUES
 (8681, 26892, 7),
 (5763, 5763, 1),
 (5763, 8694, 2),
-(5763, 11140, 3);
+(5763, 11400, 3);
