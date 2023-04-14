@@ -37,6 +37,15 @@ void IndividualProgression::UpdateProgressionState(Player* player, ProgressionSt
 void IndividualProgression::ForceUpdateProgressionState(Player* player, ProgressionState newState)
 {
     player->UpdatePlayerSetting("mod-individual-progression", SETTING_PROGRESSION_STATE, newState);
+    auto level = player->getLevel();
+    if (level >= 68 && sIndividualProgression->hasPassedProgression(player, PROGRESSION_TBC_TIER_4))
+    {
+        player->m_taxi.SetTaximaskNode(213);
+    }
+    else
+    {
+        player->m_taxi.UnsetTaximaskNode(213);
+    }
 }
 
 void IndividualProgression::CheckAdjustments(Player* player) const

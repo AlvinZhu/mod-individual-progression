@@ -66,3 +66,8 @@ INSERT INTO `creature` (`guid`, `id1`, `id2`, `id3`, `map`, `zoneId`, `areaId`, 
 
 /* G'eras only has a few 2.4 items - move them to the 2.4 Badge Vendor */
 UPDATE `npc_vendor` SET `entry` = 25046 WHERE `item` IN (35326, 35324, 35321);
+
+/* show Shattered Sun Offensive NPC at PROGRESSION_TBC_TIER_4 */
+UPDATE `creature_template` SET `ScriptName` = 'npc_ipp_tbc_t5' WHERE `entry` in (25115, 24937, 24938, 24932, 27667, 25140, 19202, 19216, 19475, 25134, 25135, 25136, 25137, 25138, 25141, 25142, 25143, 25153, 25155, 25885, 27666, 25167);
+
+UPDATE `gameobject_template` SET `ScriptName` = 'gobject_ipp_tbc_t5' WHERE `entry` IN (187056);

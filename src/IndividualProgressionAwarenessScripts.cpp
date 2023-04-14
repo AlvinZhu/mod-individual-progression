@@ -52,6 +52,32 @@ public:
     }
 };
 
+class gobject_ipp_tbc_t5 : public GameObjectScript
+{
+public:
+    gobject_ipp_tbc_t5() : GameObjectScript("gobject_ipp_tbc_t5") { }
+
+    struct gobject_ipp_tbc_t5AI: GameObjectAI
+    {
+        explicit gobject_ipp_tbc_t5AI(GameObject* object) : GameObjectAI(object) { };
+
+        bool CanBeSeen(Player const* player) override
+        {
+            if (player->IsGameMaster() || !sIndividualProgression->enabled)
+            {
+                return true;
+            }
+            Player* target = ObjectAccessor::FindConnectedPlayer(player->GetGUID());
+            return sIndividualProgression->hasPassedProgression(target, PROGRESSION_TBC_TIER_4);
+        }
+    };
+
+    GameObjectAI* GetAI(GameObject* object) const override
+    {
+        return new gobject_ipp_tbc_t5AI(object);
+    }
+};
+
 class npc_ipp_tbc : public CreatureScript
 {
 public:
@@ -101,6 +127,32 @@ public:
     CreatureAI* GetAI(Creature* creature) const override
     {
         return new npc_ipp_tbc_t4AI(creature);
+    }
+};
+
+class npc_ipp_tbc_t5 : public CreatureScript
+{
+public:
+    npc_ipp_tbc_t5() : CreatureScript("npc_ipp_tbc_t5") { }
+
+    struct npc_ipp_tbc_t5AI: ScriptedAI
+    {
+        explicit npc_ipp_tbc_t5AI(Creature* creature) : ScriptedAI(creature) { };
+
+        bool CanBeSeen(Player const* player) override
+        {
+            if (player->IsGameMaster() || !sIndividualProgression->enabled)
+            {
+                return true;
+            }
+            Player* target = ObjectAccessor::FindConnectedPlayer(player->GetGUID());
+            return sIndividualProgression->hasPassedProgression(target, PROGRESSION_TBC_TIER_4);
+        }
+    };
+
+    CreatureAI* GetAI(Creature* creature) const override
+    {
+        return new npc_ipp_tbc_t5AI(creature);
     }
 };
 
@@ -322,6 +374,7 @@ void AddSC_mod_individual_progression_awareness()
 //    new npc_ipp_naxx40(); // Not used yet
     new npc_ipp_ds2();
     new npc_ipp_tbc();
+    new npc_ipp_tbc_t5();
     new npc_ipp_tbc_t4();
     new npc_ipp_tbc_pre_t4();
     new npc_ipp_wotlk();
@@ -329,5 +382,6 @@ void AddSC_mod_individual_progression_awareness()
     new npc_ipp_wotlk_totc();
     new npc_ipp_wotlk_icc();
     new gobject_ipp_tbc();
+    new gobject_ipp_tbc_t5();
 //    new gobject_ipp_wotlk(); // Not used yet
 }

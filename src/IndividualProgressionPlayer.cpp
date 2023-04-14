@@ -56,6 +56,21 @@ public:
     void OnLevelChanged(Player* player, uint8 /*oldLevel*/) override
     {
         sIndividualProgression->CheckAdjustments(player);
+        auto level = player->getLevel();
+        if (level >= 68 && sIndividualProgression->isBeforeProgression(player, PROGRESSION_TBC_TIER_4))
+        {
+            player->m_taxi.UnsetTaximaskNode(213);
+        }
+    }
+
+    void OnLoadFromDB(Player* player) override
+    {
+        sIndividualProgression->CheckAdjustments(player);
+        auto level = player->getLevel();
+        if (level >= 68 && sIndividualProgression->isBeforeProgression(player, PROGRESSION_TBC_TIER_4))
+        {
+            player->m_taxi.UnsetTaximaskNode(213);
+        }
     }
 
     void OnEquip(Player* player, Item* /*it*/, uint8 /*bag*/, uint8 /*slot*/, bool /*update*/) override
@@ -185,6 +200,14 @@ public:
             }
         }
         if (mapid == MAP_ZUL_AMAN && !sIndividualProgression->hasPassedProgression(player, PROGRESSION_TBC_TIER_3))
+        {
+            return false;
+        }
+        if (mapid == MAP_MAGISTERS_TERRACE && !sIndividualProgression->hasPassedProgression(player, PROGRESSION_TBC_TIER_4))
+        {
+            return false;
+        }
+        if (mapid == MAP_SUNWELL_PLATEAU && !sIndividualProgression->hasPassedProgression(player, PROGRESSION_TBC_TIER_4))
         {
             return false;
         }
