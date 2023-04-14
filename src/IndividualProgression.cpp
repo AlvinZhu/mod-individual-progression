@@ -267,6 +267,9 @@ void IndividualProgression::checkKillProgression(Player* killer, Creature* kille
             case KILJAEDEN:
                 UpdateProgressionState(killer, PROGRESSION_TBC_TIER_5);
                 break;
+            case NPC_KILJAEDEN_CONTROLLER:
+                UpdateProgressionState(killer, PROGRESSION_TBC_TIER_5);
+                break;
             case KELTHUZAD:
                 UpdateProgressionState(killer, PROGRESSION_WOTLK_TIER_1);
                 break;
