@@ -498,7 +498,13 @@ public:
     void ModifyHealReceived(Unit* /*target*/, Unit *healer, uint32 &heal, SpellInfo const *spellInfo) override
     {
         // Skip potions, bandages, percentage based heals like Rune Tap, etc.
-        if (!sIndividualProgression->enabled || spellInfo->HasAttribute(SPELL_ATTR0_NO_IMMUNITIES) || spellInfo->Mechanic == MECHANIC_BANDAGE || spellInfo->Id == SPELL_RUNE_TAP)
+        if (!sIndividualProgression->enabled || spellInfo->HasAttribute(SPELL_ATTR0_NO_IMMUNITIES) || spellInfo->Mechanic == MECHANIC_BANDAGE)
+        {
+            return;
+        }
+
+        // Skip percentage based heals or spells already nerfed by damage reduction
+        if (spellInfo->Id == SPELL_RUNE_TAP || spellInfo->Id == SPELL_LIFE_STEAL)
         {
             return;
         }
@@ -516,7 +522,7 @@ public:
         float gearAdjustment = computeTotalGearTuning(player);
         if (!sIndividualProgression->hasPassedProgression(player, PROGRESSION_NAXX40))
         {
-            heal *= (sIndividualProgression->vanillaHealingAdjustment - gearAdjustment);
+            heal *= (sIndividualProgression->ComputeVanillaAdjustment(player, sIndividualProgression->vanillaHealingAdjustment) - gearAdjustment);
         }
         else if (!sIndividualProgression->hasPassedProgression(player, PROGRESSION_TBC_TIER_5))
         {
@@ -542,7 +548,7 @@ public:
         float gearAdjustment = computeTotalGearTuning(player);
         if (!sIndividualProgression->hasPassedProgression(player, PROGRESSION_NAXX40))
         {
-            damage *= (sIndividualProgression->vanillaPowerAdjustment - gearAdjustment);
+            damage *= (sIndividualProgression->ComputeVanillaAdjustment(player, sIndividualProgression->vanillaPowerAdjustment) - gearAdjustment);
         }
         else if (!sIndividualProgression->hasPassedProgression(player, PROGRESSION_TBC_TIER_5))
         {
@@ -568,7 +574,7 @@ public:
         float gearAdjustment = computeTotalGearTuning(player);
         if (!sIndividualProgression->hasPassedProgression(player, PROGRESSION_NAXX40))
         {
-            damage *= (sIndividualProgression->vanillaPowerAdjustment - gearAdjustment);
+            damage *= (sIndividualProgression->ComputeVanillaAdjustment(player, sIndividualProgression->vanillaPowerAdjustment) - gearAdjustment);
         }
         else if (!sIndividualProgression->hasPassedProgression(player, PROGRESSION_TBC_TIER_5))
         {
