@@ -80,7 +80,7 @@ void IndividualProgression::ApplyGearStatsTuning(Player* player, float& computed
     if (item->Quality != ITEM_QUALITY_EPIC) // Non-endgame gear is okay
         return;
     if ((hasPassedProgression(player, PROGRESSION_NAXX40) && (item->RequiredLevel <= 60)) ||
-        hasPassedProgression(player, PROGRESSION_TBC_TIER_5) && (item->RequiredLevel <=70))
+        (hasPassedProgression(player, PROGRESSION_TBC_TIER_5) && (item->RequiredLevel <=70)))
     {
         computedAdjustment -= (100.0f * previousGearTuning);
     }
@@ -91,7 +91,7 @@ void IndividualProgression::ComputeGearTuning(Player* player, float& computedAdj
     if (item->Quality != ITEM_QUALITY_EPIC) // Non-endgame gear is okay
         return;
     if ((hasPassedProgression(player, PROGRESSION_NAXX40) && (item->RequiredLevel <= 60)) ||
-        hasPassedProgression(player, PROGRESSION_TBC_TIER_5) && (item->RequiredLevel <=70))
+        (hasPassedProgression(player, PROGRESSION_TBC_TIER_5) && (item->RequiredLevel <=70)))
     {
         computedAdjustment += previousGearTuning;
     }
@@ -144,12 +144,15 @@ void IndividualProgression::AdjustWotLKStats(Player* player) const
 
 void IndividualProgression::AdjustStats(Player* player, float computedAdjustment, float computedHealingAdjustment)
 {
-    int32 bp0 = 0; // This would be the damage taken adjustment value, but we are already adjusting health
+//    int32 bp0 = 0; // This would be the damage taken adjustment value, but we are already adjusting health
     auto bp1 = static_cast<int32>(computedAdjustment);
     auto bp1Healing = static_cast<int32>(computedHealingAdjustment);
 
     player->RemoveAura(ABSORB_SPELL);
     player->CastCustomSpell(player, ABSORB_SPELL, &bp1, nullptr, nullptr, false);
+
+    player->RemoveAura(HP_AURA_SPELL);
+    player->CastCustomSpell(player, HP_AURA_SPELL, &bp1Healing, nullptr, nullptr, false);
 }
 
 float IndividualProgression::ComputeVanillaAdjustment(Player *player, float configAdjustmentValue)
