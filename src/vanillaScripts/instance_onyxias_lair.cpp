@@ -46,6 +46,7 @@ public:
 
         void Initialize() override
         {
+            SetHeaders(DataHeader);
             SetBossNumber(MAX_ENCOUNTER);
             ManyWhelpsCounter = 0;
             bDeepBreath = true;
