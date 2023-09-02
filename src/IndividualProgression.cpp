@@ -155,11 +155,10 @@ void IndividualProgression::AdjustStats(Player* player, float computedAdjustment
     player->CastCustomSpell(player, HP_AURA_SPELL, &bp1Healing, nullptr, nullptr, false);
 }
 
-float IndividualProgression::ComputeVanillaAdjustment(Player *player, float configAdjustmentValue)
+float IndividualProgression::ComputeVanillaAdjustment(uint8 playerLevel, float configAdjustmentValue)
 {
-    float adjustmentAmount = 1.0f - configAdjustmentValue;
-    float adjustmentApplyPercent = (player->getLevel() - 10.0f) / 50.0f;
-    return player->getLevel() > 10 ? (1.0f - (adjustmentAmount * adjustmentApplyPercent)) : 1.0f;
+    float adjustmentApplyPercent = (float(playerLevel) - 10.0f) / 50.0f;
+    return playerLevel > 10 ? 1.0f - ((1.0f - configAdjustmentValue) * adjustmentApplyPercent) : 1;
 }
 
 /**
@@ -330,6 +329,7 @@ private:
         sIndividualProgression->deathKnightStartingProgression = sConfigMgr->GetOption<uint8>("IndividualProgression.DeathKnightStartingProgression", 11);
         sIndividualProgression->LoadCustomProgressionEntries(sConfigMgr->GetOption<std::string>("IndividualProgression.CustomProgression", ""));
         sIndividualProgression->earlyDungeonSet2 = sConfigMgr->GetOption<bool>("IndividualProgression.AllowEarlyDungeonSet2", true);
+        sIndividualProgression->pvpGearRequirements = sConfigMgr->GetOption<bool>("IndividualProgression.PvPGearRequirements", true);
     }
 
     static void LoadXpValues()

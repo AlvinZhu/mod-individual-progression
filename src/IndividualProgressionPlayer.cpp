@@ -29,24 +29,27 @@ public:
         sIndividualProgression->CheckAdjustments(player);
     }
 
-    // Waiting for PR: https://github.com/azerothcore/azerothcore-wotlk/pull/13046
-   void OnSetMaxLevel(Player* player, uint32& maxPlayerLevel) override
-   {
-       if (!sIndividualProgression->hasPassedProgression(player, PROGRESSION_NAXX40))
-       {
-           if (sWorld->getIntConfig(CONFIG_MAX_PLAYER_LEVEL) > 60)
-           {
-               maxPlayerLevel = 60;
-           }
-       }
-       else if (!sIndividualProgression->hasPassedProgression(player, PROGRESSION_TBC_TIER_5))
-       {
-           if (sWorld->getIntConfig(CONFIG_MAX_PLAYER_LEVEL) > 70)
-           {
-               maxPlayerLevel = 70;
-           }
-       }
-   }
+    void OnSetMaxLevel(Player* player, uint32& maxPlayerLevel) override
+    {
+        if (!sIndividualProgression->enabled)
+        {
+            return;
+        }
+        if (!sIndividualProgression->hasPassedProgression(player, PROGRESSION_NAXX40))
+        {
+            if (sWorld->getIntConfig(CONFIG_MAX_PLAYER_LEVEL) > 60)
+            {
+                maxPlayerLevel = 60;
+            }
+        }
+        else if (!sIndividualProgression->hasPassedProgression(player, PROGRESSION_TBC_TIER_5))
+        {
+            if (sWorld->getIntConfig(CONFIG_MAX_PLAYER_LEVEL) > 70)
+            {
+                maxPlayerLevel = 70;
+            }
+        }
+    }
 
     void OnMapChanged(Player* player) override
     {
@@ -145,7 +148,7 @@ public:
         }
     }
 
-    void OnGiveXP(Player* player, uint32& amount, Unit* /*victim*/, uint8 /*xpSource*/) override
+    void OnGiveXP(Player* player, uint32& amount, Unit* /*victim*/, uint8 xpSource) override
     {
         if (!sIndividualProgression->enabled)
         {
@@ -154,11 +157,19 @@ public:
         // Player is still in Vanilla content - do not give XP past level 60
         if (!sIndividualProgression->hasPassedProgression(player, PROGRESSION_NAXX40) && player->getLevel() >= 60)
         {
+            // Still award XP to pets - they won't be able to pass the player's level
+            Pet* pet = player->GetPet();
+            if (pet && xpSource == XPSOURCE_KILL)
+                pet->GivePetXP(player->GetGroup() ? amount / 2 : amount);
             amount = 0;
         }
             // Player is in TBC content - do not give XP past level 70
         else if (!sIndividualProgression->hasPassedProgression(player, PROGRESSION_TBC_TIER_5) && player->getLevel() >= 70)
         {
+            // Still award XP to pets - they won't be able to pass the player's level
+            Pet* pet = player->GetPet();
+            if (pet && xpSource == XPSOURCE_KILL)
+                pet->GivePetXP(player->GetGroup() ? amount / 2 : amount);
             amount = 0;
         }
     }
@@ -373,6 +384,75 @@ public:
             rDungeonId = RDF_THE_BURNING_CRUSADE_HEROIC;
         }
     }
+
+    bool CanEquipItem(Player* player, uint8 /*slot*/, uint16& /*dest*/, Item* pItem, bool /*swap*/, bool /*not_loading*/) override
+    {
+        if (sIndividualProgression->pvpGearRequirements)
+        {
+            switch (pItem->GetTemplate()->RequiredHonorRank)
+            {
+                case 5:
+                    if (!(player->HasTitle(PRIVATE) || player->HasTitle(SCOUT)))
+                        return false;
+                    break;
+                case 6:
+                    if (!(player->HasTitle(CORPORAL) || player->HasTitle(GRUNT)))
+                        return false;
+                    break;
+                case 7:
+                    if (!(player->HasTitle(SERGEANT) || player->HasTitle(SERGEANT_H)))
+                        return false;
+                    break;
+                case 8:
+                    if (!(player->HasTitle(MASTER_SERGEANT) || player->HasTitle(SENIOR_SERGEANT)))
+                        return false;
+                    break;
+                case 9:
+                    if (!(player->HasTitle(SERGEANT_MAJOR) || player->HasTitle(FIRST_SERGEANT)))
+                        return false;
+                    break;
+                case 10:
+                    if (!(player->HasTitle(KNIGHT) || player->HasTitle(STONE_GUARD)))
+                        return false;
+                    break;
+                case 11:
+                    if (!(player->HasTitle(KNIGHT_LIEUTENANT) || player->HasTitle(BLOOD_GUARD)))
+                        return false;
+                    break;
+                case 12:
+                    if (!(player->HasTitle(KNIGHT_CAPTAIN) || player->HasTitle(LEGIONNAIRE)))
+                        return false;
+                    break;
+                case 13:
+                    if (!(player->HasTitle(KNIGHT_CHAMPION) || player->HasTitle(CENTURION)))
+                        return false;
+                    break;
+                case 14:
+                    if (!(player->HasTitle(LIEUTENANT_COMMANDER) || player->HasTitle(CHAMPION)))
+                        return false;
+                    break;
+                case 15:
+                    if (!(player->HasTitle(COMMANDER) || player->HasTitle(LIEUTENANT_GENERAL)))
+                        return false;
+                    break;
+                case 16:
+                    if (!(player->HasTitle(MARSHAL) || player->HasTitle(GENERAL)))
+                        return false;
+                    break;
+                case 17:
+                    if (!(player->HasTitle(FIELD_MARSHAL) || player->HasTitle(WARLORD)))
+                        return false;
+                    break;
+                case 18:
+                    if (!(player->HasTitle(GRAND_MARSHAL) || player->HasTitle(HIGH_WARLORD)))
+                        return false;
+                    break;
+                default:
+                    break;
+            }
+        }
+        return true;
+    }
 };
 
 class IndividualPlayerProgression_AccountScript: public AccountScript
@@ -509,7 +589,6 @@ public:
             return;
         }
 
-        // NPCBots Compatibility - healer may be null
         if (!healer)
             return;
 
@@ -522,7 +601,7 @@ public:
         float gearAdjustment = computeTotalGearTuning(player);
         if (!sIndividualProgression->hasPassedProgression(player, PROGRESSION_NAXX40))
         {
-            heal *= (sIndividualProgression->ComputeVanillaAdjustment(player, sIndividualProgression->vanillaHealingAdjustment) - gearAdjustment);
+            heal *= (sIndividualProgression->ComputeVanillaAdjustment(player->getLevel(), sIndividualProgression->vanillaHealingAdjustment) - gearAdjustment);
         }
         else if (!sIndividualProgression->hasPassedProgression(player, PROGRESSION_TBC_TIER_5))
         {
@@ -538,7 +617,6 @@ public:
     {
         if (!sIndividualProgression->enabled || !attacker)
             return;
-
         bool isPet = attacker->GetOwner() && attacker->GetOwner()->GetTypeId() == TYPEID_PLAYER;
         if (!isPet && attacker->GetTypeId() != TYPEID_PLAYER)
         {
@@ -548,7 +626,7 @@ public:
         float gearAdjustment = computeTotalGearTuning(player);
         if (!sIndividualProgression->hasPassedProgression(player, PROGRESSION_NAXX40))
         {
-            damage *= (sIndividualProgression->ComputeVanillaAdjustment(player, sIndividualProgression->vanillaPowerAdjustment) - gearAdjustment);
+            damage *= (sIndividualProgression->ComputeVanillaAdjustment(player->getLevel(), sIndividualProgression->vanillaPowerAdjustment) - gearAdjustment);
         }
         else if (!sIndividualProgression->hasPassedProgression(player, PROGRESSION_TBC_TIER_5))
         {
@@ -574,7 +652,7 @@ public:
         float gearAdjustment = computeTotalGearTuning(player);
         if (!sIndividualProgression->hasPassedProgression(player, PROGRESSION_NAXX40))
         {
-            damage *= (sIndividualProgression->ComputeVanillaAdjustment(player, sIndividualProgression->vanillaPowerAdjustment) - gearAdjustment);
+            damage *= (sIndividualProgression->ComputeVanillaAdjustment(player->getLevel(), sIndividualProgression->vanillaPowerAdjustment) - gearAdjustment);
         }
         else if (!sIndividualProgression->hasPassedProgression(player, PROGRESSION_TBC_TIER_5))
         {

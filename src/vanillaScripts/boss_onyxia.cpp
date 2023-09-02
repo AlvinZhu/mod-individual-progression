@@ -115,6 +115,7 @@ enum Yells
     SAY_EVADE                   = 5
 };
 
+
 class boss_onyxia_40 : public CreatureScript
 {
 public:
@@ -208,17 +209,15 @@ public:
 
         void JustSummoned(Creature* summon) override
         {
-            summons.Summon(summon);
-
-            if (summon->GetEntry() != NPC_ONYXIAN_WHELP && summon->GetEntry() != NPC_ONYXIAN_LAIR_GUARD)
+            if (summon->GetEntry() == NPC_ONYXIAN_WHELP || summon->GetEntry() == NPC_ONYXIAN_LAIR_GUARD)
             {
-                return;
-            }
+                if (Unit* target = summon->SelectNearestTarget(300.0f))
+                {
+                    summon->AI()->AttackStart(target);
+                    DoZoneInCombat(summon);
+                }
 
-            if (Unit* target = summon->SelectNearestTarget(300.0f))
-            {
-                summon->AI()->AttackStart(target);
-                DoZoneInCombat(summon);
+                summons.Summon(summon);
             }
         }
 
@@ -274,11 +273,29 @@ public:
                     whelpSpamTimer -= diff;
                     if (whelpSpamTimer <= 0)
                     {
-                        float angle = rand_norm() * 2 * M_PI;
-                        float dist  = rand_norm() * 4.0f;
-                        me->CastSpell(-33.18f + cos(angle) * dist, -258.80f + std::sin(angle) * dist, -89.0f, SPELL_SUMMON_WHELP, true);
-                        me->CastSpell(-32.535f + cos(angle) * dist, -170.190f + std::sin(angle) * dist, -89.0f, SPELL_SUMMON_WHELP, true);
-                        whelpCount += 2;
+                        // Coordinates for the cave mouths
+                        float caveMouths[2][3] = {
+                            {-31.71, -170.55, -89.72},
+                            {-32.086, -258.55, -89.72},
+                        };
+
+                        // Randomly select one of the cave mouths for spawning
+                        uint8 selectedCave = urand(0, 1);
+
+                        // Summon a whelp at the selected cave mouth
+                        Creature* whelp = me->SummonCreature(NPC_ONYXIAN_WHELP, caveMouths[selectedCave][0], caveMouths[selectedCave][1], caveMouths[selectedCave][2], 0);
+
+                        if (whelp)
+                        {
+                            // Find the nearest player and attack
+                            if (Unit* target = whelp->SelectNearestTarget(300.0f))
+                            {
+                                whelp->AI()->AttackStart(target);
+                            }
+                        }
+
+                        // Increment the whelp count and reset the timer
+                        whelpCount += 1;
                         whelpSpamTimer += 600;
                     }
                 }
@@ -290,6 +307,7 @@ public:
                 }
             }
         }
+
 
     bool CheckInRoom() override
     {

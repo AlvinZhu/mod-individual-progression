@@ -140,6 +140,41 @@ enum RandomDungeonIds : uint16
     RDF_WRATH_OF_THE_LICH_KING_HEROIC = 262
 };
 
+enum PvPTitles : uint32
+{
+    // Alliance
+    PRIVATE                  = 1,
+    CORPORAL                 = 2,
+    SERGEANT                 = 3,
+    MASTER_SERGEANT          = 4,
+    SERGEANT_MAJOR           = 5,
+    KNIGHT                   = 6,
+    KNIGHT_LIEUTENANT        = 7,
+    KNIGHT_CAPTAIN           = 8,
+    KNIGHT_CHAMPION          = 9,
+    LIEUTENANT_COMMANDER     = 10,
+    COMMANDER                = 11,
+    MARSHAL                  = 12,
+    FIELD_MARSHAL            = 13,
+    GRAND_MARSHAL            = 14,
+
+    // Horde
+    SCOUT                    = 15,
+    GRUNT                    = 16,
+    SERGEANT_H               = 17,
+    SENIOR_SERGEANT          = 18,
+    FIRST_SERGEANT           = 19,
+    STONE_GUARD              = 20,
+    BLOOD_GUARD              = 21,
+    LEGIONNAIRE              = 22,
+    CENTURION                = 23,
+    CHAMPION                 = 24,
+    LIEUTENANT_GENERAL       = 25,
+    GENERAL                  = 26,
+    WARLORD                  = 27,
+    HIGH_WARLORD             = 28
+};
+
 class IndividualProgression
 {
 public:
@@ -148,7 +183,7 @@ public:
     std::map<uint32, uint8> customProgressionMap;
     questXpMapType questXpMap;
     float vanillaPowerAdjustment, vanillaHealthAdjustment, tbcPowerAdjustment, tbcHealthAdjustment, vanillaHealingAdjustment, tbcHealingAdjustment, previousGearTuning;
-    bool enabled, questXpFix, hunterPetLevelFix, requirePreAQQuests, enforceGroupRules, fishingFix, simpleConfigOverride, questMoneyAtLevelCap, repeatableVanillaQuestsXp, disableDefaultProgression, earlyDungeonSet2, requireNaxxStrath;
+    bool enabled, questXpFix, hunterPetLevelFix, requirePreAQQuests, enforceGroupRules, fishingFix, simpleConfigOverride, questMoneyAtLevelCap, repeatableVanillaQuestsXp, disableDefaultProgression, earlyDungeonSet2, requireNaxxStrath, pvpGearRequirements;
     int progressionLimit, startingProgression, tbcRacesProgressionLevel, deathKnightProgressionLevel, deathKnightStartingProgression;
 
     bool hasPassedProgression(Player* player, ProgressionState state) const;
@@ -165,7 +200,7 @@ public:
     void checkKillProgression(Player* player, Creature* killed);
     static void LoadCustomProgressionEntries(const std::string& customProgressionString);
     static void AdjustStats(Player* player, float computedAdjustment, float computedHealingAdjustment);
-    static float ComputeVanillaAdjustment(Player* player, float configAdjustmentValue);
+    static float ComputeVanillaAdjustment(uint8 playerLevel, float configAdjustmentValue);
     static uint8 GetAccountProgression(uint32 accountId);
 };
 

@@ -34,6 +34,10 @@ INSERT INTO `creature` (`id1`, `map`, `position_x`, `position_y`, `position_z`, 
 DELETE FROM `creature` WHERE `id1`=12198;
 INSERT INTO `creature` (`id1`, `map`, `position_x`, `position_y`, `position_z`, `orientation`, `spawntimesecs`) VALUES (12198, 1, -995.143, 217.173, 104.729, 4.46804, 500);
 
+-- Remove WotLK Battlemasters
+DELETE FROM `creature` WHERE `id1`=34978;
+DELETE FROM `creature` WHERE `id1`=34976;
+
 -- Karn Stonehoof <Expert Blacksmith>
 UPDATE `creature_template` SET `subname`='Expert Blacksmith' WHERE `entry`=2998;
 
@@ -54,9 +58,6 @@ UPDATE `creature_template` SET `subname`='Expert Alchemist' WHERE `entry`=3009;
 
 -- Teg Dawnstrider <Expert Enchanter>
 UPDATE `creature_template` SET `subname`='Expert Enchanter' WHERE `entry`=3011;
-
--- Nida Winterhoof <Herbalism Supplier>
-UPDATE `creature_template` SET `subname`='Expert Enchanter' WHERE `entry`=3014;
 
 -- Kard Ragetotem <Sword and Dagger Merchant>
 UPDATE `creature_template` SET `subname`='Sword and Dagger Merchant' WHERE `entry`=3021;
