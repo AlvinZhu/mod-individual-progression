@@ -370,20 +370,35 @@ public:
     }
 
     void OnQueueRandomDungeon(Player* player, uint32& rDungeonId) override
+{
+    // List of exceptions for seasonal event dungeons
+    std::set<uint32> seasonalEventDungeons = { 285, 286, 287, 288 };
+    if (seasonalEventDungeons.find(rDungeonId) != seasonalEventDungeons.end())
     {
-        if (!sIndividualProgression->hasPassedProgression(player, PROGRESSION_NAXX40))
-        {
-            rDungeonId = RDF_CLASSIC;
-        }
-        else if (rDungeonId == RDF_WRATH_OF_THE_LICH_KING && !sIndividualProgression->hasPassedProgression(player, PROGRESSION_TBC_TIER_5))
-        {
-            rDungeonId = RDF_THE_BURNING_CRUSADE;
-        }
-        else if (rDungeonId == RDF_WRATH_OF_THE_LICH_KING_HEROIC && !sIndividualProgression->hasPassedProgression(player, PROGRESSION_TBC_TIER_5))
-        {
-            rDungeonId = RDF_THE_BURNING_CRUSADE_HEROIC;
-        }
+        return;
     }
+
+    // Check if RDF is disabled in the context of Individual Progression
+    if (sConfigMgr->GetOption<bool>("IndividualProgression.DisableRDF", false))
+    {
+        player->GetSession()->SendNotification("The Random Dungeon feature is currently disabled by the Individual Progression module.");
+        rDungeonId = 1000; // Set dungeon ID to an invalid value to cancel the queuing
+        return;
+    }
+
+    if (!sIndividualProgression->hasPassedProgression(player, PROGRESSION_NAXX40))
+    {
+        rDungeonId = RDF_CLASSIC;
+    }
+    else if (rDungeonId == RDF_WRATH_OF_THE_LICH_KING && !sIndividualProgression->hasPassedProgression(player, PROGRESSION_TBC_TIER_5))
+    {
+        rDungeonId = RDF_THE_BURNING_CRUSADE;
+    }
+    else if (rDungeonId == RDF_WRATH_OF_THE_LICH_KING_HEROIC && !sIndividualProgression->hasPassedProgression(player, PROGRESSION_TBC_TIER_5))
+    {
+        rDungeonId = RDF_THE_BURNING_CRUSADE_HEROIC;
+    }
+}
 
     bool CanEquipItem(Player* player, uint8 /*slot*/, uint16& /*dest*/, Item* pItem, bool /*swap*/, bool /*not_loading*/) override
     {
@@ -584,6 +599,13 @@ public:
         }
 
         // Skip percentage based heals or spells already nerfed by damage reduction
+        for (uint8 i = 0; i < 3; i++)
+        {
+            if (spellInfo->Effects[i].Effect == SPELL_EFFECT_HEAL_MAX_HEALTH)
+            {
+                return;
+            }
+        }
         if (spellInfo->Id == SPELL_RUNE_TAP || spellInfo->Id == SPELL_LIFE_STEAL)
         {
             return;
@@ -664,10 +686,19 @@ public:
         }
     }
 
-    void ModifyPeriodicDamageAurasTick(Unit* /*target*/, Unit* attacker, uint32& damage, SpellInfo const* /*spellInfo*/) override
+    void ModifyPeriodicDamageAurasTick(Unit* /*target*/, Unit* attacker, uint32& damage, SpellInfo const* spellInfo) override
     {
         if (!sIndividualProgression->enabled || !attacker)
             return;
+
+        // Do not apply reductions to healing auras - these are already modified in the ModifyHeal hook
+        for (uint8 j = 0; j < MAX_SPELL_EFFECTS; ++j)
+        {
+            if (spellInfo->Effects[j].Effect == SPELL_EFFECT_APPLY_AURA && spellInfo->Effects[j].ApplyAuraName == SPELL_AURA_PERIODIC_HEAL)
+            {
+                return;
+            }
+        }
 
         bool isPet = attacker->GetOwner() && attacker->GetOwner()->GetTypeId() == TYPEID_PLAYER;
         if (!isPet && attacker->GetTypeId() != TYPEID_PLAYER)
