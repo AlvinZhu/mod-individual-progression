@@ -26,6 +26,10 @@ public:
         {
             sIndividualProgression->UpdateProgressionState(player, static_cast<ProgressionState>(sIndividualProgression->startingProgression));
         }
+        if (player->GetSession()->IsBot())
+        {
+            sIndividualProgression->UpdateProgressionState(player, PROGRESSION_WOTLK_TIER_5);
+        }
         sIndividualProgression->CheckAdjustments(player);
     }
 
